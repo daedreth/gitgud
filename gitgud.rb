@@ -13,19 +13,26 @@ end.parse!
 
 bots = Array.new
 
-message = ""
+messages =  [
+                "test1",
+                "test2"
+            ]
 
-server = ""
+msize = messages.size
+mpos = 0
 
-tokens = 	[
+serverid = "341967942956875796"
 
-			]
+tokens =    [
+                "MzQ2MTMxMzEwMDIyMjMwMDE5.DHFX-w.vN3HCVKTQ0rpTa-cXPfbx4Beqrg",
+                "MzQ2MTI5NTkwMDQzMDE3MjE2.DHFWYg.TUw1VuLbhpuaCScaoPjZSdCRQAU"
+            ]
 
 tokens.each { |token|
     bots.push(Discordrb::Bot.new(log_mode: :silent, token: token, type: :user, parse_self: true))
     bots[bots.size-1].run(true)
     puts "Logged into #{bots[bots.size-1].profile.username}!"
-    if not bots[bots.size-1].servers.has_key? server.to_i then
+    if not bots[bots.size-1].servers.has_key? serverid.to_i then
         puts "Account #{bots[bots.size-1].profile.username} is not in the server!"
     end
 }
@@ -36,17 +43,13 @@ if options[:dryrun] then exit end
 
 puts "Starting spam"
 
-bots.each { |bot|
-    Thread.new {
-        loop do
-            server = bot.server(server)
-            server.channels.each { |channel|
-                channel.send_message(message) rescue nil
-            }
-        end
-    }
-}
-
 loop do
-    sleep(1)
+    bots.each { |bot|
+        server = bot.server(serverid)
+        server.channels.each { |channel|
+            if mpos == msize then mpos = 0 end
+            channel.send_message(messages[mpos]) rescue nil
+            mpos += 1
+        }
+    }
 end
