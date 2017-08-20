@@ -4,13 +4,12 @@ An Open Source Discord Stress-testing Tool
 # Current features
 * Control a large amount of bot accounts to stress test anti-spam bots
 * Dry-run mode to make sure all bots are connected to the server and can speak (run with -d)
+* Alternate between multiple sent messages to avoid repeat message filters
 
 # Planned features
-* Alternate between multiple sent messages to avoid repeat message filters
 * Variable delay between messages to avoid message speed filters
 * Automatically join servers (NOTE: THIS WILL UNVERIFY YOUR ACCOUT)
 * Automatically join/leave servers to rate limit role-based probation bots (again, see above)
-* Switch to a thread pool system to run on systems with poor CPUs better (currently there's 1 thread per bot)
 
 # License
 This tool is licensed under the MIT Expat License. See LICENSE for details.
